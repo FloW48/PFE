@@ -1,2 +1,3 @@
-Dans collection formation : comment faire pour qu'une formation réfère sa formation parent ? => comment référencer par objet
-Pas bien compris la différence entre décomposition et structure formation
+Dans collection formation : comment faire pour qu'une formation réfère sa formation parent ? => comment référencer par objet (résolu)
+Pas bien compris la différence entre décomposition et structure formation (résolu)
+Difficulté à raisonner en non-relationnel

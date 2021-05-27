@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const formationSchema = new Schema({
     projet:{ type: Schema.Types.ObjectId, ref: 'Projet' },
     verrouille:Boolean,
-    decomposition:{ type: Schema.Types.ObjectId, ref: 'Decomposition' }
+    decomposition:{ type: Schema.Types.ObjectId, ref: 'Element' }
 });
 
 const Formation = mongoose.model('Formation', formationSchema);
