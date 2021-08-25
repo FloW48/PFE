@@ -1,19 +1,21 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const MpathPlugin = require('mongoose-mpath');
 
 const elementSchema = new Schema({
     titre:String,
+    name:String,
+    id:String,
     surnom:String,
+    idFormation:String,
     code:String,
     niveau:Number,
-    elementParent:{ type: Schema.Types.ObjectId, ref: 'Element' },
-    indiceFils:Number,
+    modeSaisie:String,
     volumeHeureProgPedag :{
         cm:{type:Number},
         td:{type:Number},
         tp:{type:Number}
     },
-    modeSaisie:String,
     saisieAutorise:{
         cm:{type:Boolean},
         tp:{type:Boolean},
@@ -32,13 +34,6 @@ const elementSchema = new Schema({
         tp: {type: Number, default: 1, min: 0},
         partiel: {type: Number, default: 1, min: 0}
     },
-    volumeHeureHebdo:[{
-        nSemaine: {type: Number, default: 1, min: 1},
-        cm: {type: Number, default: 0, min: 0},
-        td: {type: Number, default: 0, min: 0},
-        tp: {type: Number, default: 0, min: 0},
-        partiel: {type: Number, default: 0, min: 0}
-    }],
     volumeHeureGlobaux:[{
         intervenant:{ type: Schema.Types.ObjectId, ref: 'Intervenant' },
         volumeHeures:{
@@ -48,17 +43,40 @@ const elementSchema = new Schema({
             partiel:{type:Number},
         }
     }],
+
+    //Volume
+    volumeHeureHebdo:[{
+        nSemaine: {type: Number, default: 1, min: 1},
+        cm: {type: Number, default: 0, min: 0},
+        td: {type: Number, default: 0, min: 0},
+        tp: {type: Number, default: 0, min: 0},
+        partiel: {type: Number, default: 0, min: 0}
+    }],
     groupeParEnseignant:[{
-        numeroSemaine:Number,
         intervenant:{ type: Schema.Types.ObjectId, ref: 'Intervenant' },
-        nbGroupes:{
-            cm:{type:Number},
-            td:{type:Number},
-            tp:{type:Number},
-            partiel:{type:Number},
-        }
-    }]
+        info:[{
+            nSemaine:{type:Number},
+            nbGroupes:{
+                cm:{type:Number},
+                td:{type:Number},
+                tp:{type:Number},
+                partiel:{type:Number},
+            }
+        }]
+    }],
+
+
+    //Période
+    nbSemaines:Number,
+    nbGroupes:{
+        cm:{type:Number},
+        td:{type:Number},
+        tp:{type:Number},
+        partiel:{type:Number}
+    }
 });
+
+elementSchema.plugin(MpathPlugin);
 
 const Element = mongoose.model('Element', elementSchema);
 

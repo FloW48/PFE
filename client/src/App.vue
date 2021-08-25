@@ -5,27 +5,123 @@
       color="primary"
       dark
     >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
+          <v-spacer></v-spacer>      <v-spacer></v-spacer>
+        <v-menu
+          open-on-hover
+          bottom
+          offset-y
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <div
+              color="primary"
+              dark
+              v-bind="attrs"
+              v-on="on"
+            >
+              Status
+            </div>
+          </template>
 
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
+          <v-list>
+            <v-list-item
+              v-for="(item, index) in itemsStatut"
+              :key="index"
+            >
+              <a :href= item.link >
+                <v-list-item-title>{{ item.title }}</v-list-item-title>
+              </a>
+            </v-list-item>
+          </v-list>
+        </v-menu>
 
       <v-spacer></v-spacer>
+
+         <v-menu
+          open-on-hover
+          bottom
+          offset-y
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <div
+              color="primary"
+              dark
+              v-bind="attrs"
+              v-on="on"
+            >
+              Enseignants
+            </div>
+          </template>
+
+          <v-list>
+            <v-list-item
+              v-for="(item, index) in itemsEnseignant"
+              :key="index"
+            >
+              <a :href= item.link >
+                <v-list-item-title>{{ item.title }}</v-list-item-title>
+              </a>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+      <v-spacer></v-spacer>
+        <v-menu
+          open-on-hover
+          bottom
+          offset-y
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <div
+              color="primary"
+              dark
+              v-bind="attrs"
+              v-on="on"
+            >
+              Projets
+            </div>
+          </template>
+
+          <v-list>
+            <v-list-item
+              v-for="(item, index) in itemsProjet"
+              :key="index"
+            >
+              <a :href= item.link >
+                <v-list-item-title>{{ item.title }}</v-list-item-title>
+              </a>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+      <v-spacer></v-spacer>
+
+        <v-menu
+          open-on-hover
+          bottom
+          offset-y
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <div
+              color="primary"
+              dark
+              v-bind="attrs"
+              v-on="on"
+            >
+              Formations
+            </div>
+          </template>
+
+          <v-list>
+            <v-list-item
+              v-for="(item, index) in itemsFormation"
+              :key="index"
+            >
+              <a :href= item.link >
+                <v-list-item-title>{{ item.title }}</v-list-item-title>
+              </a>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+
+      <v-spacer></v-spacer>      <v-spacer></v-spacer>      <v-spacer></v-spacer>
 
       <v-btn
         href="https://github.com/vuetifyjs/vuetify/releases/latest"
@@ -49,7 +145,22 @@ export default {
   name: 'App',
 
   data: () => ({
-    //
+    itemsStatut: [
+      {title:"Ajouter un statut", link:"/statut"},
+      {title:"Afficher les status", link:"/getStatuts"},
+    ],
+    itemsEnseignant: [
+      {title:"Ajouter un enseignant", link:"/enseignant"},
+      {title:"Afficher les enseignants", link:"/getEnseignants"},
+    ],
+    itemsProjet: [
+      {title:"Ajouter un projet", link:"/addProjet"},
+      {title:"Afficher les projets", link:"/getProjets"},
+    ],
+    itemsFormation: [
+      {title:"Ajouter une formation", link:"/addFormation"},
+    ],
+
   }),
 };
 </script>

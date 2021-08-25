@@ -20,19 +20,31 @@
     data(){
         return {
             items: [],
-                  headers: [
-                        { text: "Prénom", align: "start", value: "prenom" },
-                        { text: "Nom", value: "nom"},
-                        { text: "Surnom", value: "surnom" },
-                        { text: "Email", value: "email" },
-                        { text: "Statut", value: "statut.nom" },
-                        { text: "Actions", value: "actions", sortable: false },
-                    ],
+
+            headers: [
+                { text: "Prénom", align: "start", value: "prenom" },
+                { text: "Nom", value: "nom"},
+                { text: "Surnom", value: "surnom" },
+                { text: "Email", value: "email" },
+                { text: "Statut", value: "statut.nom" },
+                { text: "Actions", value: "actions", sortable: false },
+            ],
         }    
     },
     methods:{
         editEnseignant(id){
-            console.log(id)
+            let enseignant = {}
+            for(let i = 0; i < this.items.length; i++){
+                if(this.items[i]._id == id){
+                    enseignant = this.items[i]
+                    break;
+                }
+            }
+
+
+            this.$store.state.enseignantToModify = enseignant
+
+            this.$router.push({ name : 'EditEnseignant'})
         },
         deleteEnseignant(id){
 

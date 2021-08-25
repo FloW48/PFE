@@ -3,8 +3,10 @@
         <v-container ml-16 mr-16 mt-4>
             <v-data-table :headers="headers" :items="items" item-key="_id">
                 <template v-slot:[`item.actions`]="{ item }">
-                    <v-icon small class="mr-2" @click="edit(item._id)">mdi-pencil</v-icon>
+                    <v-icon small @click="edit(item._id)">mdi-pencil</v-icon>
                     <v-icon small @click="deleteItem(item._id)">mdi-delete</v-icon>
+                    <v-icon small @click="addEnseignant(item._id)">mdi-plus-circle</v-icon>
+                    <!-- <v-icon small @click="listIntervenants(item._id)">mdi-plus-circle</v-icon> -->
                 </template>
             </v-data-table>
         </v-container>
@@ -15,18 +17,16 @@
   import axios from "axios";
 
   export default {
-    name: 'ListStatut',
+    name: 'ListProjet',
 
     data(){
         return {
             items: [],
             headers: [
                 { text: "Nom", align: "start", value: "nom" },
-                { text: "Surnom", value: "surnom"},
-                { text: "nbHeuresMin", value: "nbHeures.min" },
-                { text: "nbHeuresMax", value: "nbHeures.max" },
-                { text: "nbHeuresSupMin", value: "nbHeuresSup.min" },
-                { text: "nbHeuresSupMax ", value: "nbHeuresSup.max" },
+                { text: "Date", value: "date"},
+                { text: "Verouille?", value: "verrouille" },
+                { text: "Archive?", value: "archive" },
                 { text: "Actions", value: "actions", sortable: false },
             ],
         }    
@@ -46,16 +46,23 @@
 
             let data = {"id":id}
             axios
-                .post("http://localhost:3000/deleteStatut", data, {
+                .post("http://localhost:3000/deleteProjet", data, {
                     headers:{
                         'content-type': 'application/json'
                     }
                 })
+        },
+
+        addEnseignant(id){
+            this.$router.push({ name : 'ListEnseignantForAddProjet', params:{projectID:id}})
+        },
+        listIntervenants(id){
+            this.$router.push({ name : 'ListIntervenantFromProject', params:{projectID:id}})
         }
     },
     created : function(){
         axios
-            .get("http://localhost:3000/getStatuts")
+            .get("http://localhost:3000/getProjets")
             .then(res => {
                 console.log(res.data)
                 this.items = res.data
